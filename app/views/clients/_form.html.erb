@@ -1,0 +1,54 @@
+<%
+  if(mode == 'create')
+    method = :post
+    url = clients_path    
+  else
+    method = :put
+    url = client_path(id: "#{@client.id}")
+  end     
+%>
+
+<td>
+  <% if mode == 'update'%>
+    <%= link_to 'Delete', client_path(id: "#{@client.id}"), remote: true, method: :delete, class: 'delete' %>
+  <%end%>
+</td>
+<td>
+  <div class="field"> <%= text_field_tag(:client_name, @client.name) %> </div>
+</td>
+<td>    
+  <div class="field"> <%= text_field_tag(:client_email, @client.email) %> </div>
+</td>
+<td><%= link_to 'Cancel', client_path(id: "#{@client.id}"), remote: true, method: :get, class: 'cancel' %></td>
+<td>
+  
+  <%= link_to 'Save', url, remote: true, method: method, class: 'update' %>
+</td>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.update').click(function(event){
+    var tr    = $(this).parents()[1];
+    var name  = '';
+    var email = '';
+
+    name  = $(tr).find(':input[id=client_name]').val();
+    email = $(tr).find(':input[id=client_email]').val();    
+
+    url = $(this).attr('href') + '?client[email]=' + email + '&client[name]=' + name;
+    
+    $(this).attr('href',url);
+        
+    event.preventDefault();
+  });
+
+  if($('#new_client_form').length > 0){
+    $('.cancel').click(function(event){
+      $('#clients tr:last').remove();
+      $('#new_client_link').show();
+      event.preventDefault();
+    });
+  }
+});
+
+</script>

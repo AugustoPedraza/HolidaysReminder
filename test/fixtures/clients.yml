@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+mcDonald:
+  name: Mc Donald
+  email: info@mcdonald.com
+
+cocaCola:
+  name: Coca Cola
+  email: info@cocacola.com
+
+apple:
+  name: Apple inc.
+  email: info@apple.com

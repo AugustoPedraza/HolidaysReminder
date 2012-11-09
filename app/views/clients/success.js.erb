@@ -1,0 +1,12 @@
+if ($('#new_client_form').length > 0){
+  //Alta de cliente.
+
+  $('#new_client_form').remove();
+  $('#clients').append('<%=escape_javascript(render(partial: "show")) %>');
+  $('#new_client_link').show();
+  //TODO: aqui tiene que ir un mensaje informativo.
+} else{
+  //Actualización de cliente.
+  $('#<%="#{@client.id}"%>').html('<%=escape_javascript(render(partial: "show")) %>');
+  //TODO: aqui tiene que ir un mensaje informativo.
+}

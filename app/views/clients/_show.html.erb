@@ -1,0 +1,15 @@
+<td></td>
+<td>
+  <%= @client.name %>
+</td>
+
+<td>
+  <%= @client.email %>
+</td>
+<td>  
+</td>
+<td>
+  <%= link_to 'Edit', edit_client_path(:id=>"#{@client.id}"), :remote => true %>
+</td>
+
+
