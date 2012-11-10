@@ -2,7 +2,7 @@ if ($('#new_client_form').length > 0){
   //Alta de cliente.
 
   $('#new_client_form').remove();
-  $('#clients').append('<%=escape_javascript(render(partial: "show")) %>');
+  $('#clients').append('<tr id= "<%=@client.id%>"><%=escape_javascript(render(partial: "show")) %></tr>');
   $('#new_client_link').show();
   //TODO: aqui tiene que ir un mensaje informativo.
 } else{

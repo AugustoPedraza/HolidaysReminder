@@ -1,14 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>HolidaysReminder</title>
+  <title>Holidays Reminder</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+  <body>
+    <div class='container' style="border: 1px solid #ccc;">
+      <div class="navbar">
+        <div class="navbar-inner" style="border-top: 0;border-left:0;border-right:0">
+          <a class="brand" href="#">Holidays Reminder</a>
+          <ul class="nav">
+            <li class="active"><a href="#">Calendar</a></li>
+            <li class="divider-vertical"></li>
+            <li id="clients-nav"><%= link_to "Clients", clients_path %></li>
+            <li class="divider-vertical"></li>
+            <li><a href="#">Notifications</a></li>      
+          </ul>
+          <div style="text-align:right"><a href="">username</a></div>
+          <div style="text-align:right"><a href="">logout</a></div>
+        </div>
+</div>
+<!--Body-->
+<div id="body" class="row .flow">        
+  <!--Content -->
+  <div id="main-content" class="span12" style="text-align:center">
+    <%= yield %>
+  </div>
+  <!-- end Content -->
+</div>
+<!--end Body-->
+</div> <!-- end Container -->
 
-<%= yield %>
-
-</body>
+      
+    <!--Pie-->      
+    <div id="footer" class="container">
+      <div class="row .flow">
+        <div class="span6" style='text-align:left;margin-top:1%'>
+          <p> © Copyright Augusto Pedraza - Diciembre 2012</p>
+        </div>
+        <div class="span6" style='text-align:right;margin-top:1%'>
+          <p><a href="http://twitter.com/AugustoPedraza">Twitter</a> | <a href="http://github.com/AugustoPedraza">Github</a>  </p>
+        </div>
+      </div>
+    </div>
+    <!--end Pie-->    
+  </body>
 </html>

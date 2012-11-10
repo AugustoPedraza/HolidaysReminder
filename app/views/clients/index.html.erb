@@ -1,41 +1,48 @@
-<h1>Listing clients</h1>
+<h2>Listing clients</h2>
+<br/>
+<div class="row .fluid">
+  <div class="span12" style="text-align:center">
+    <table class="table" id= 'clients'>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+      </tr>
 
-<table border=1, id= 'clients'>
-  <tr>
-    <th></th>
-    <th>Name</th>
-    <th>Email</th>
-    <th></th>
-    <th></th>
-  </tr>
+    <% @clients.each do |client| %>
+      <tr id = "<%=client.id%>" >
+        <td></td>
+        <td>
+          <%= client.name %>
+        </td>
+        <td>
+          <%= client.email %>
+        </td>
+        <td></td>
+        <td>
+          <%= button_to 'Edit', edit_client_path(:id=>"#{client.id}"), method: :get, remote: true, class: 'edit btn' %>
+        </td>    
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
 
-<% @clients.each do |client| %>
-  <tr id = "<%=client.id%>" >
-    <td></td>
-    <td>
-      <%= client.name %>
-    </td>
-    <td>
-      <%= client.email %>
-    </td>
-    <td></td>
-    <td>      
-      <%= link_to 'Edit', edit_client_path(:id=>"#{client.id}"), remote: true %>
-    </td>    
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Client', new_client_path, remote: true, id: 'new_client_link' %>
+<div class="row .fluid">
+  <div class="span12" style="text-align:right">
+  <%= button_to 'New Client', new_client_path, method: :get, remote: true,  id: 'new_client_link', class: 'btn btn-primary' %>
+  </div>
+</div>
 
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $('#new_client_link').click(function(event){
-      $(this).hide();
-      event.preventDefault();
-    });
+  $('#new_client_link').click(function(event){$(this).hide()});
+  $('ul.nav li.active').removeClass('active');
+  $('ul.nav li#clients-nav').addClass('active');
 });
+
+
 </script>

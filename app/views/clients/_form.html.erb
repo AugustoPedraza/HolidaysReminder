@@ -1,7 +1,7 @@
 <%
   if(mode == 'create')
     method = :post
-    url = clients_path    
+    url = clients_path
   else
     method = :put
     url = client_path(id: "#{@client.id}")
@@ -10,7 +10,7 @@
 
 <td>
   <% if mode == 'update'%>
-    <%= link_to 'Delete', client_path(id: "#{@client.id}"), remote: true, method: :delete, class: 'delete' %>
+    <%= button_to 'Delete', client_path(id: "#{@client.id}"), remote: true, method: :delete, class: 'delete btn btn-danger' %>
   <%end%>
 </td>
 <td>
@@ -19,27 +19,31 @@
 <td>    
   <div class="field"> <%= text_field_tag(:client_email, @client.email) %> </div>
 </td>
-<td><%= link_to 'Cancel', client_path(id: "#{@client.id}"), remote: true, method: :get, class: 'cancel' %></td>
 <td>
-  
-  <%= link_to 'Save', url, remote: true, method: method, class: 'update' %>
+    <%= button_to 'Cancel', client_path(id: "#{@client.id}"), remote: true, method: :get, class: 'cancel btn btn-inverse'%>  
+</td>
+<td>  
+  <%= button_to 'Save', url, remote: true, method: method, class: 'update btn btn-success' %>
 </td>
 
 <script type="text/javascript">
 $(document).ready(function() {
   $('.update').click(function(event){
-    var tr    = $(this).parents()[1];
-    var name  = '';
-    var email = '';
 
-    name  = $(tr).find(':input[id=client_name]').val();
-    email = $(tr).find(':input[id=client_email]').val();    
+    var tr;
 
-    url = $(this).attr('href') + '?client[email]=' + email + '&client[name]=' + name;
-    
-    $(this).attr('href',url);
-        
-    event.preventDefault();
+    if($(this).parents().find('#new_client_form').length > 0){            
+      tr = $('#new_client_form');   //Alta
+    } else {
+      tr = $('#<%=@client.id%>');   //Modificacion
+    }
+
+    var name  = $(tr).find(':input[id=client_name]').val();
+    var email = $(tr).find(':input[id=client_email]').val();
+    var form  = $(tr).find('td:last form');
+
+    url = $(form).attr('action') + '?client[email]=' + email + '&client[name]=' + name;
+    $(form).attr('action',url);
   });
 
   if($('#new_client_form').length > 0){

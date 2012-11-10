@@ -1,7 +1,9 @@
 HolidaysReminder::Application.routes.draw do
+  root to: 'clients#index'
+
   resources :clients
 
-  root to: 'clients#index'
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

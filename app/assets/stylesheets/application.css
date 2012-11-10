@@ -11,3 +11,13 @@
  *= require_self
  *= require_tree .
  */
+.row {
+    zoom: 1;
+    margin-left: -20px;
+}
+
+.row > [class*="span"] {
+    display: inline;
+    float: left;
+    margin-left: 20px;
+}

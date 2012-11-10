@@ -9,7 +9,14 @@
 <td>  
 </td>
 <td>
-  <%= link_to 'Edit', edit_client_path(:id=>"#{@client.id}"), :remote => true %>
+    <%= button_to 'Edit', edit_client_path(:id=>"#{@client.id}"), method: :get, :remote => true, class: 'edit btn' %>
 </td>
 
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.edit').click(function(event){
+      console.log("Click en edit..");
+    });
+  });
+</script>
