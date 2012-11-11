@@ -3,6 +3,8 @@ HolidaysReminder::Application.routes.draw do
 
   resources :clients
 
+  match 'calendary' => 'calendary#index'
+  match 'calendary/holidays' => 'calendary#holidays'
   
 
   # The priority is based upon order of creation:

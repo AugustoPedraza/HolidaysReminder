@@ -1,2 +1,1 @@
-console.log($('#<%="#{@client.id}"%>').length);
 $('#<%="#{@client.id}"%>').html("<%=escape_javascript(render(partial: 'form', locals: {mode: 'update'})) %>");
