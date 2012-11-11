@@ -24,7 +24,7 @@ $(document).ready(function() {
     },
 
     eventSources: [{
-        url: '/calendary/holidays',
+        url: '/holidays',
         color: 'yellow',
         textColor: 'black',
         ignoreTimezone: false
@@ -176,6 +176,8 @@ function bindingCreateHolidayButton(){
       // event.title = updatedName;
 
       // $('#calendar').fullCalendar('updateEvent', event);
+
+      $('#calendar').fullCalendar( 'refetchEvents' )
 
       } else{
         //Error en el servidor...
