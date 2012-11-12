@@ -197,16 +197,7 @@ function bindingUpdateHolidayButton(event){
 
 function bindingDeleteHolidayButton(event){
   $('#deleteHolidayButton').click(function(jsEvent){
-    if (true) { //Respuesta del servidor.
-      $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#5BB75B" ><span class="pln">Holiday deleted!</span></pre>');
-      $('.modal-footer').html('<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
-
-      $('#calendar').fullCalendar( 'removeEvents', [event.id]);
-    } else{
-      //Error en el servidor...
-      $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#BD362F" ><span class="pln">Problem to update Holiday!</span></pre>');
-      $('.modal-footer').html('<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
-    }
+    ajaxInvokeDestroy(event);
   });
 }
 
@@ -229,8 +220,8 @@ function ajaxInvokeCreate(holiday){
   });
 }
 
-function ajaxInvokeUpdate(eventCalendar, updatedName, updatedDate){
-  $.ajax('/holidays/' + eventCalendar.id, {
+function ajaxInvokeUpdate(event, updatedName, updatedDate){
+  $.ajax('/holidays/' + event.id, {
     type: 'PUT',
     dataType: 'json',
     data: { holiday:  {name: updatedName, date: dateFormat(updatedDate, 'dd/mm/yyyy')}},
@@ -238,13 +229,11 @@ function ajaxInvokeUpdate(eventCalendar, updatedName, updatedDate){
       $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#5BB75B" ><span class="pln">Holiday updated!</span></pre>');
       $('.modal-footer').html('<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
 
-      eventCalendar.start = updatedDate;
-      eventCalendar.end   = updatedDate;
-      eventCalendar.title = updatedName;
+      event.start = updatedDate;
+      event.end   = updatedDate;
+      event.title = updatedName;
 
-      console.log(eventCalendar);
-      debugger;
-      $('#calendar').fullCalendar('updateEvent', eventCalendar);
+      $('#calendar').fullCalendar('updateEvent', event);
     },
     error: function(xhr, ajaxOptions, thrownError) {
       $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#BD362F" ><span class="pln">Problem to update Holiday!</span></pre>');
@@ -253,6 +242,25 @@ function ajaxInvokeUpdate(eventCalendar, updatedName, updatedDate){
     }
   });
 }
+
+function ajaxInvokeDestroy(event){
+  $.ajax('/holidays/' + event.id, {
+    type: 'DELETE',
+    dataType: 'json',    
+    success: function() {
+      $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#5BB75B" ><span class="pln">Holiday deleted!</span></pre>');
+      $('.modal-footer').html('<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
+      
+      $('#calendar').fullCalendar( 'removeEvents', [event.id]);
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#BD362F" ><span class="pln">Problem to delete Holiday!</span></pre>');
+      $('.modal-footer').html('<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
+      console.log(thrownError);
+    }
+  });
+}
+
 
   //Ver los remove modal
 
