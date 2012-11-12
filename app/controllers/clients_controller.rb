@@ -48,7 +48,7 @@ class ClientsController < ApplicationController
     @client = user.clients.create(params[:client])
 
     respond_to do |format|
-      if @client.save
+      if @client.save        
         format.js{ render layout: false, action: :success }
       else
         format.js{ render layout: false, action: :failure }
