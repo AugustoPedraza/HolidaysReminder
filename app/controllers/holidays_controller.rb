@@ -21,26 +21,10 @@ class HolidaysController < ApplicationController
     end
   end
 
-  # GET /holidays/new
-  # GET /holidays/new.json
-  def new
-    @holiday = Holiday.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @holiday }
-    end
-  end
-
-  # GET /holidays/1/edit
-  def edit
-    @holiday = Holiday.find(params[:id])
-  end
-
   # POST /holidays
   # POST /holidays.json
   def create
-    params[:holiday][:date] = DateTime.strptime(params[:holiday][:date],'%d/%m/%Y')    
+    params[:holiday][:date] = DateTime.strptime(params[:holiday][:date],'%d/%m/%Y')
     @holiday = Holiday.new(params[:holiday])
 
     respond_to do |format|
@@ -55,14 +39,13 @@ class HolidaysController < ApplicationController
   # PUT /holidays/1
   # PUT /holidays/1.json
   def update
+    params[:holiday][:date] = DateTime.strptime(params[:holiday][:date],'%d/%m/%Y')
     @holiday = Holiday.find(params[:id])
 
     respond_to do |format|
       if @holiday.update_attributes(params[:holiday])
-        format.html { redirect_to @holiday, notice: 'Holiday was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
         format.json { render json: @holiday.errors, status: :unprocessable_entity }
       end
     end
