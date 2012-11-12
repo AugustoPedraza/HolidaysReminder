@@ -3,7 +3,7 @@ class HolidaysController < ApplicationController
   # GET /holidays
   # GET /holidays.json
   def index
-    @holidays = Holiday.all
+    @holidays = User.find(current_user.id).holidays
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class HolidaysController < ApplicationController
   # GET /holidays/1
   # GET /holidays/1.json
   def show
-    @holiday = Holiday.find(params[:id])
+    @holiday = User.find(current_user.id).holidays.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,8 +25,9 @@ class HolidaysController < ApplicationController
   # POST /holidays
   # POST /holidays.json
   def create
+    user   = User.find(current_user.id)
     params[:holiday][:date] = DateTime.strptime(params[:holiday][:date],'%d/%m/%Y')
-    @holiday = Holiday.new(params[:holiday])
+    @holiday = user.holidays.create(params[:holiday])
 
     respond_to do |format|
       if @holiday.save
@@ -41,7 +42,9 @@ class HolidaysController < ApplicationController
   # PUT /holidays/1.json
   def update
     params[:holiday][:date] = DateTime.strptime(params[:holiday][:date],'%d/%m/%Y')
-    @holiday = Holiday.find(params[:id])
+    
+    user     = User.find(current_user.id)
+    @holiday = user.holidays.find(params[:id])
 
     respond_to do |format|
       if @holiday.update_attributes(params[:holiday])
@@ -55,7 +58,9 @@ class HolidaysController < ApplicationController
   # DELETE /holidays/1
   # DELETE /holidays/1.json
   def destroy
-    @holiday = Holiday.find(params[:id])
+    user     = User.find(current_user.id)
+    @holiday = user.holidays.find(params[:id])
+
     @holiday.destroy
 
     respond_to do |format|

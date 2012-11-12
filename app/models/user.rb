@@ -13,4 +13,5 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :name, :email, :case_sensitive => false
 
   has_many :clients
+  has_many :holidays
 end
