@@ -91,13 +91,13 @@ function addHolidayEditionModal(event){
           '<div class="control-group">' +
             '<label class="control-label" for="inputName">Name</label>' +
             '<div class="controls">' +
-              '<input type="text" id="inputName" value="' + event.title + '" placeholder="Name">' +
+              '<input type="text" class="inputName" value="' + event.title + '" placeholder="Name">' +
             '</div>' +
           '</div>' +
           '<div class="control-group">' +
             '<label class="control-label" for="inputDate">Date</label>' +
             '<div class="controls">' +
-              '<input type="text" id="inputDate" value="' + date + '" placeholder="Date">' +
+              '<input type="text" class="inputDate" value="' + date + '" placeholder="Date">' +
             '</div>' +
           '</div>' +          
         '</form>' +
@@ -128,13 +128,13 @@ function bindingAddNewHolidayButton(){
           '<div class="control-group">' +
             '<label class="control-label" for="inputName">Name</label>' +
             '<div class="controls">' +
-              '<input type="text" id="inputName" placeholder="Name">' +
+              '<input type="text" class="inputName" placeholder="Name">' +
             '</div>' +
           '</div>' +
           '<div class="control-group">' +
             '<label class="control-label" for="inputDate">Date</label>' +
             '<div class="controls">' +
-              '<input type="text" id="inputDate" placeholder="Date">' +
+              '<input type="text" class="inputDate" placeholder="Date">' +
             '</div>' +
           '</div>' +          
         '</form>' +
@@ -157,40 +157,39 @@ function bindingAddNewHolidayButton(){
 
 function bindingCreateHolidayButton(){
   $('#createHolidayButton').click(function(jsEvent){
-    var nameInput  = $(':input[id=inputName]').val();
-    var dateInput  = $(':input[id=inputDate]').val(); //Tiene el formato dd/mm/aaaa
+    var nameInput  = $('#createHolidayModal :input[class=inputName]').val();
+    var dateInput  = $('#createHolidayModal :input[class=inputDate]').val(); //Tiene el formato dd/mm/aaaa
   
     if (false) { //Comprobar que sea un fecha inválida
       //mostrar error de fecha mal ingresada.   
     };
 
-    var updatedDate = new Date(dateInput.split('/').reverse());
-    var current     = updatedDate.toDateString();
+    console.log(dateInput);
+    console.log(nameInput);
     
-    if (true) { //Respuesta del servidor.    
-      $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#5BB75B" ><span class="pln">Holiday created!</span></pre>');
-      $('.modal-footer').html('<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
+    $.ajax('/holidays/', {
+      type: 'POST',
+      dataType: 'json',
+      data: { holiday: {name: nameInput, date: dateInput} },
+      success: function() {
+        $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#5BB75B" ><span class="pln">Holiday created!</span></pre>');
+        $('.modal-footer').html('<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
 
-      // event.start = updatedDate;
-      // event.end   = updatedDate;
-      // event.title = updatedName;
-
-      // $('#calendar').fullCalendar('updateEvent', event);
-
-      $('#calendar').fullCalendar( 'refetchEvents' )
-
-      } else{
-        //Error en el servidor...
+        $('#calendar').fullCalendar( 'refetchEvents' )
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
         $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#BD362F" ><span class="pln">Problem to create Holiday!</span></pre>');
         $('.modal-footer').html('<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
-      };    
+        console.log(thrownError);
+      }
+    });
    });
 }
 
 function bindingUpdateHolidayButton(event){
   $('#updateHolidayButton').click(function(jsEvent){
-    var updatedName  = $(':input[id=inputName]').val();
-    var dateInput  = $(':input[id=inputDate]').val(); //Tiene el formato dd/mm/aaaa
+    var updatedName = $('#editHolidayModal :input[id=inputName]').val();
+    var dateInput   = $('#editHolidayModal :input[id=inputDate]').val(); //Tiene el formato dd/mm/aaaa
   
     if (false) { //Comprobar que sea un fecha inválida
       //mostrar error de fecha mal ingresada.   

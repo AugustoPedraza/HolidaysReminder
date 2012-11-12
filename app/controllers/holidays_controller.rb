@@ -40,14 +40,13 @@ class HolidaysController < ApplicationController
   # POST /holidays
   # POST /holidays.json
   def create
+    params[:holiday][:date] = DateTime.strptime(params[:holiday][:date],'%d/%m/%Y')    
     @holiday = Holiday.new(params[:holiday])
 
     respond_to do |format|
       if @holiday.save
-        format.html { redirect_to @holiday, notice: 'Holiday was successfully created.' }
         format.json { render json: @holiday, status: :created, location: @holiday }
       else
-        format.html { render action: "new" }
         format.json { render json: @holiday.errors, status: :unprocessable_entity }
       end
     end
