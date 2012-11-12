@@ -241,6 +241,13 @@ function ajaxInvokeUpdate(event, updatedName, updatedDate){
       event.title = updatedName;
 
       $('#calendar').fullCalendar('updateEvent', event);
+
+      var dateArray = dateFormat(updatedDate, 'dd/mm/yyyy').split('/');
+      var date      = parseInt(dateArray[0]);
+      var month     = parseInt(dateArray[1]);
+      var year      = parseInt(dateArray[2]);
+
+      $('#calendar').fullCalendar('gotoDate', new Date(year, month - 1, date));
     },
     error: function(xhr, ajaxOptions, thrownError) {
       $('.modal-body').append('<br/><pre class="prettyprint linenums" style="text-align:center;color:white;background-color:#BD362F" ><span class="pln">Problem to update Holiday!</span></pre>');
