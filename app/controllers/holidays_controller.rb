@@ -1,4 +1,5 @@
 class HolidaysController < ApplicationController
+  before_filter :authenticate_user!
   # GET /holidays
   # GET /holidays.json
   def index

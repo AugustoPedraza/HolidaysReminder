@@ -1,8 +1,15 @@
 HolidaysReminder::Application.routes.draw do
-  root to: 'clients#index'
+  authenticated :user do
+    root to: 'holidays#index'
+  end
+  
+  root to: redirect("/users/sign_in")
 
+  devise_for :users
+  
   resources :holidays
   resources :clients
+
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
