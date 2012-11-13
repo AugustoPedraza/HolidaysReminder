@@ -1,8 +1,9 @@
 HolidaysReminder::Application.routes.draw do
 
+  
 
-match '/register' => 'home#register', via: 'get'
-match '/successful-registration' => 'home#successful_registration', via: 'get'
+  match '/register' => 'home#register', via: 'get'
+  match '/successful-registration' => 'home#successful_registration', via: 'get'
 
   authenticated :user do
     root to: 'holidays#index'
@@ -10,8 +11,12 @@ match '/successful-registration' => 'home#successful_registration', via: 'get'
   
   root to: 'home#index'
 
-  devise_for :users, :controllers => { :registrations => "registrations" }
+  devise_for :users, :controllers => { :registrations => "registrations", confirmations: 'confirmations' }
   
+  devise_scope :user do
+    get '/successful-confirmation' => 'home#successful_confirmation', as: 'successful_confirmation'
+  end
+
   resources :holidays
   resources :clients
 

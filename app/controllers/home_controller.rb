@@ -10,4 +10,8 @@ class HomeController < ApplicationController
   def successful_registration
     render action: "successful_registration", layout: 'home'
   end
+
+  def successful_confirmation
+    render action: "successful_confirmation", layout: 'home'
+  end
 end
