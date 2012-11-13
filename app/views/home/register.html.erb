@@ -1,0 +1,53 @@
+<div class="span10">
+  <div class="hero-unit">
+    <%= form_for("user", :url => user_registration_path, html:{class: 'form-horizontal'}) do |f| %>
+    <fieldset>
+      <legend>Register user</legend>
+      <div class="control-group">
+        <label class="control-label" for="inputCompany"><b>Company</b></label>
+        <div class="controls">
+          <%= f.text_field :name %>
+        </div>
+      </div>
+
+      <div class="control-group">        
+        <%= f.label :email, class: 'control-label', style: 'font-weight: bold;' %>
+        <div class="controls">         
+          <%= f.email_field :email %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :password, class: 'control-label', style: 'font-weight: bold;' %>
+        <div class="controls">
+          <%= f.password_field :password %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :password_confirmation, class: 'control-label', style: 'font-weight: bold;' %>
+        <div class="controls">
+          <%= f.password_field :password_confirmation %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="inputCountry"><b>Contry</b></label>
+        <div class="controls">
+          <select name="menu" size="1">
+              <option value="1">Argentina</option>
+              <option value="2">Europa</option>
+              <option value="3">Otro paises</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <%= f.submit 'Register', class: "btn btn-primary" %>
+        </div>
+      </div>
+    </fieldset>
+    <% end %>
+  </div>
+</div>

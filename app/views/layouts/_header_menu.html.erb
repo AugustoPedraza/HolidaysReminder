@@ -8,8 +8,10 @@
         <li class="divider-vertical"></li>
         <li><a href="#">Notifications</a></li>
     </ul>
+      <% if user_signed_in?%>
       <div style="text-align:right"> <%= current_user.name %></div>
       <div style="text-align:right"> <%= link_to "Sign out", destroy_session_path(:user), method: :delete %><br />
       </div>
+      <%end%>
   </div>
 </div>
