@@ -1,9 +1,10 @@
 HolidaysReminder::Application.routes.draw do
+
   authenticated :user do
     root to: 'holidays#index'
   end
   
-  root to: redirect("/users/sign_in")
+  root to: 'home#index'
 
   devise_for :users
   
