@@ -1,0 +1,15 @@
+<div class="navbar">
+  <div class="navbar-inner" style="border-top: 0;border-left:0;border-right:0">
+    <a class="brand" href="#">Holidays Reminder</a>
+    <ul class="nav">
+        <li class="active"><%= link_to "Holidays", holidays_path %></li>
+        <li class="divider-vertical"></li>
+        <li id="clients-nav"><%= link_to "Clients", clients_path %></li>
+        <li class="divider-vertical"></li>
+        <li><a href="#">Notifications</a></li>
+    </ul>
+      <div style="text-align:right"> <%= current_user.name %></div>
+      <div style="text-align:right"> <%= link_to "Sign out", destroy_session_path(:user), method: :delete %><br />
+      </div>
+  </div>
+</div>

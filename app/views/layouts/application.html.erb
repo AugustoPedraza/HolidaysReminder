@@ -9,38 +9,10 @@
   <body>
     <div class='container' style="border: 1px solid #ccc;">
       
-      <!-- Header -->
-      <% if user_signed_in? %>
-        <div class="navbar">
-          <div class="navbar-inner" style="border-top: 0;border-left:0;border-right:0">
-            <a class="brand" href="#">Holidays Reminder</a>
-            <ul class="nav">
-              <%# if user_signed_in? %>
-                <li class="active"><%= link_to "Holidays", holidays_path %></li>
-                <li class="divider-vertical"></li>
-                <li id="clients-nav"><%= link_to "Clients", clients_path %></li>
-                <li class="divider-vertical"></li>
-                <li><a href="#">Notifications</a></li>
-              <%# end %>
-            </ul>
-            
-              <div style="text-align:right"> <%= current_user.name %></div>          
-              <div style="text-align:right"> <%= link_to "Sign out", destroy_session_path(:user), method: :delete %><br />            
-              </div>
-            
-          </div>
-        </div>
-      <% else %>
-        <div class="row .flow">        
-          <div class="span1"></div>
-          <div class="span11">
-            <%= yield :header %>
-          </div>        
-        </div>
-        
-      <% end %>
-
-      <!-- end header -->
+    <!-- Header -->
+    <%= render "layouts/header_menu" %>
+      
+    <!-- end header -->
 
       <!--Body-->
       <div id="body" class="row .flow">        
